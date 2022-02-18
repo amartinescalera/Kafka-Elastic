@@ -1,0 +1,3 @@
+include 'kafka-consumer'
+include 'kafka-elastic'
+include 'kafka-producer'

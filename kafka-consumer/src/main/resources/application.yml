@@ -1,0 +1,22 @@
+application:
+  title: Kafka Consumer
+  version: 1.0.0-SNAPSHOT
+
+server:
+  port: 8091
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties.spring.json.trusted.packages: info.antoniomartin.kafka.*
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      client-id: spring-boot-producer
+    streams:
+      replication-factor: 1
+      application-id: string-boot-streams
+

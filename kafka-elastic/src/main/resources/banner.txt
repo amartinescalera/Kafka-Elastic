@@ -1,0 +1,10 @@
+
+ ,-
+ | ,---.,-.-.
+-: ,---|| | |
+ | `---^` ' '
+ `-
+
+${application.title} ${application.version} SB Version:  ${spring-boot.version}
+Powered by Antonio Martin de la Escalera (https://www.antoniomartin.info)
+---------------------------------------------------------------------------------------
