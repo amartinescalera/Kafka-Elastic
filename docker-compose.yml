@@ -7,6 +7,10 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
       ZOOKEEPER_ADMIN_ENABLE_SERVER: 'false'
+    deploy:
+      resources:
+        limits:
+          memory: 50M
   kafka:
     image: confluentinc/cp-kafka
     container_name: broker
@@ -31,39 +35,52 @@ services:
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
       KAFKA_AUTHORIZER_CLASS_NAME: 'kafka.security.authorizer.AclAuthorizer'
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: 'true'
+    deploy:
+      resources:
+        limits:
+          memory: 1GB
   akhq:
     image: tchiotludo/akhq
-    environment:
-      AKHQ_CONFIGURATION: |
-        akhq:
-          connections:
-            docker-kafka-server:
-              properties:
-                bootstrap.servers: "kafka:9092"
+    volumes:
+      - ./conf/application.yml:/app/application.yml
     ports:
-      - 8080:8080
+      - "8080:8080"
     links:
       - kafka
-  elasticsearch:
-    container_name: elasticsearch
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.0
-    environment:
-      - xpack.security.enabled=false
-      - "discovery.type=single-node"
-    ports:
-      - 9200:9200
-  kibana:
-    container_name: kibana
-    image: docker.elastic.co/kibana/kibana:7.11.0
-    environment:
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-    depends_on:
-      - elasticsearch
-    ports:
-      - 5601:5601
-#networks:
-#  es-net:
-#    driver: bridge
+    deploy:
+      resources:
+        limits:
+          memory: 1GB
+#  elasticsearch:
+#    container_name: elasticsearch
+#    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.0
+#    environment:
+#      - xpack.security.enabled=false
+#      - "discovery.type=single-node"
+#    ports:
+#      - 9200:9200
+#    deploy:
+#      resources:
+#        limits:
+#          cpus: '0.001'
+#          memory: 1GB
+#  kibana:
+#    container_name: kibana
+#    image: docker.elastic.co/kibana/kibana:7.11.0
+#    environment:
+#      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+#    depends_on:
+#      - elasticsearch
+#    ports:
+#      - 5601:5601
+#    deploy:
+#      resources:
+#        limits:
+#          cpus: '0.001'
+#          memory: 1GB
+networks:
+  es-net:
+    driver: bridge
 
 
 #https://levelup.gitconnected.com/docker-compose-made-easy-with-elasticsearch-and-kibana-4cb4110a80dd
