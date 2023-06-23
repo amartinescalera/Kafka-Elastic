@@ -1,0 +1,18 @@
+application:
+  title: Kafka Producer
+  version: 1.0.0-SNAPSHOT
+
+server:
+  port: 8092
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      client-id: spring-boot-producer
+      group-id:  spring-boot-kafka
+    streams:
+      replication-factor: 1
+      application-id: string-boot-streams
