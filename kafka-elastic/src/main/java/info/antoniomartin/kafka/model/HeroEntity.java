@@ -9,6 +9,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.GeoPointField;
+import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 
 @Builder
 @Getter
@@ -33,8 +35,8 @@ public class HeroEntity {
     @Field(type = FieldType.Text, name = "description")
     private String description;
 
-    @Field(type = FieldType.Text, name = "location")
-    private String location;
+    @GeoPointField
+    private GeoPoint location;
 
     @Field(type = FieldType.Date, name = "@timeStamp")
     private Long timeStamp;

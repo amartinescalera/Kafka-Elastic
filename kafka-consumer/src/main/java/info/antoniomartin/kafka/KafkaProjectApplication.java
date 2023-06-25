@@ -1,5 +1,6 @@
 package info.antoniomartin.kafka;
 
+import com.github.javafaker.Faker;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,5 +17,10 @@ public class KafkaProjectApplication {
     @Bean
     NewTopic heroes() {
         return TopicBuilder.name("hero").partitions(1).replicas(1).build();
+    }
+
+    @Bean
+    Faker faker() {
+        return new Faker();
     }
 }

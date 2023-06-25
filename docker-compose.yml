@@ -38,7 +38,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1GB
+          memory: 500M
   akhq:
     image: tchiotludo/akhq
     volumes:
@@ -50,34 +50,32 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1GB
-#  elasticsearch:
-#    container_name: elasticsearch
-#    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.0
-#    environment:
-#      - xpack.security.enabled=false
-#      - "discovery.type=single-node"
-#    ports:
-#      - 9200:9200
-#    deploy:
-#      resources:
-#        limits:
-#          cpus: '0.001'
-#          memory: 1GB
-#  kibana:
-#    container_name: kibana
-#    image: docker.elastic.co/kibana/kibana:7.11.0
-#    environment:
-#      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-#    depends_on:
-#      - elasticsearch
-#    ports:
-#      - 5601:5601
-#    deploy:
-#      resources:
-#        limits:
-#          cpus: '0.001'
-#          memory: 1GB
+          memory: 500M
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.0
+    environment:
+      - xpack.security.enabled=false
+      - "discovery.type=single-node"
+    ports:
+      - 9200:9200
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.11.0
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    ports:
+      - 5601:5601
+    deploy:
+      resources:
+        limits:
+          memory: 500M
 networks:
   es-net:
     driver: bridge

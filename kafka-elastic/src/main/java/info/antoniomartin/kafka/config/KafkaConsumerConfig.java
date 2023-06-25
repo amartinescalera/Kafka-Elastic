@@ -15,7 +15,7 @@ public class KafkaConsumerConfig {
     @Bean
     public Consumer<Hero> readMessage(HeroIndexerService heroIndexerService) {
         return hero -> {
-            log.info("Received USM message from kafka. msg=[{}]", hero);
+            log.info("Received hero message from kafka. msg=[{}]", hero);
             heroIndexerService.createHeroIndexer(hero);
         };
     }
